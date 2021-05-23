@@ -1,0 +1,10 @@
+[Unit]
+Description=skrudzh-fa-admin
+
+[Service]
+Environment=SPRING_PROFILES_ACTIVE=prod
+ExecStart=java -jar /home/jenkins/runtime/skrudzh-fa-admin.jar
+User=jenkins
+
+[Install]
+WantedBy=default.target

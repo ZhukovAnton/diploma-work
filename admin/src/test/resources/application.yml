@@ -1,0 +1,112 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /
+  error:
+    whitelabel:
+      enabled: true
+
+spring:
+  devtools:
+    restart:
+      poll-interval: 2s
+      quiet-period: 1s
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  application:
+    name: SkrudzhAPI
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  jpa:
+    database: H2
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      use_sql_comments: true
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        temp:
+          use_jdbc_metadata_defaults: false
+  messages:
+    basename: messages
+    encoding: UTF-8
+    fallback-to-system-locale: true
+    use-code-as-default-message: false
+    cache-duration:
+  datasource:
+    platform: h2
+    username: sa
+    password: 1234
+    driverClassName: org.h2.Driver
+    initialization-mode: always
+    url: jdbc:h2:mem:testdb;
+  liquibase:
+    change-log: "classpath:db/changelog/db.changelog-master.xml"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+
+logging:
+  level:
+    root: info
+    com.stanum: debug
+    io:
+      swagger:
+        models:
+          parameters:
+            AbstractSerializableParameter: error
+
+threebaskets:
+  admin-id: 9940
+  env: development
+  jwt:
+    headerName: Authorization
+    issuedBy: fit
+    lifetime: 480000 #in hours, !!!!!! set lower values in a non-local environments
+  jwtKey:
+    public: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4RsqDWxgCpWtmguoa32aQOy26iu3rVXAQ8aSVE3q4uyWqPurBZHyBzpNjamVmqq7Ol6EZKbnZSOvKjn6rV6Bt6rIWHLoUhq09X9qYnKx8GjSHLloy6pjKJACKhXVkZEbEaVdPnUrlyFlKTYnjc1iL6BTc4S/jrmg1VQfqOaUzYw764rQ/DxpJp5BahTiI7UCo/KZS9P5rKQawlTEWF6KOSfrE7I6b2bqTVPcfsF2+6uqh2oOLdmMvnhT+HKdHe7bUqpEA5aB0CC9s/UGdjKn+3akW+PKhyfb0k9nkVbWIq0loeeWyvXrF10wJtrWrGBHtNI6vqyPrJEgVkxU9AH/lQIDAQAB
+    private: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDhGyoNbGAKla2aC6hrfZpA7LbqK7etVcBDxpJUTeri7Jao+6sFkfIHOk2NqZWaqrs6XoRkpudlI68qOfqtXoG3qshYcuhSGrT1f2picrHwaNIcuWjLqmMokAIqFdWRkRsRpV0+dSuXIWUpNieNzWIvoFNzhL+OuaDVVB+o5pTNjDvritD8PGkmnkFqFOIjtQKj8plL0/mspBrCVMRYXoo5J+sTsjpvZupNU9x+wXb7q6qHag4t2Yy+eFP4cp0d7ttSqkQDloHQIL2z9QZ2Mqf7dqRb48qHJ9vST2eRVtYirSWh55bK9esXXTAm2tasYEe00jq+rI+skSBWTFT0Af+VAgMBAAECggEABqEQKfkJEwa5aBHz0caPJl5SPK8w54/g654LbSQmSKyC+1L+BFn58LCM3CEkYLuqa9ugtn4bzmSwoeO3OCfSViBXahNoOBLFRX2NGn0aNGRB28qyBV1tMiKbjbW65mCJlYlzJ4W31OmM2xvXKlvkClcEXiCIq6FX1TB3BjhUJYFvk/7uWR5I76QqHHlZUVb6jeqCREht4fKAxy8RAOUxFurjP6hv1knKjQHzOzNiP/RSQnLPwZc690mn6HXZ2uS6dXU0XPJZVriqwca8pltYP1plpCPc0RARjC5C0tRhvinnoPNNJMzhd6MRrg548lPUnDiKppkfeijit6zPHCZ1+QKBgQD5hVwMtKSKv3Mem2nVEwORstNoBNZ2iYpU77flIM5yQ9tFA69lCk6FH+EccPJDOA7iL6uLRuMAYmV1/ZQZty16iRV7g2E5QZ/myYNlO0LvCqZS+pkTQ2quz3M39V6qwtwMILlt3CHRo+97cqO1k8g/iB3agulRmWf2G1zplErFNwKBgQDm84MU63SUIgxlTyNAtFWqp8MdRqH3jBo1BMWzczngw7GzQSFoiCmHBy5GZpkoLep7ksK6jwXcaDG/MQTwEclsK4QYEPWTwW/uM7rKvCGEDnCu9FNX55FSpgkmtc61g/E6BW8kaNs6AyRQAvwaW5ufHW45na7OOECosmBTouPHkwKBgBFTwHOla7Oy3cSnWC8StfG9ME8N3vK2VGPXjback5l9utFNEzX6BD/cWd6GvVwLnYT5eHkggAz7yD3sUQeEH+VddZ9xHSRDuV3manhyKBC/dZNXkZ+z08m14DNnl55WD7/L2fSWD8cmEjBJYrLuQz6eLiyJYLho5b5CYi5aPOL7AoGBAMWO1rmFdHLm8U2UNaa63HEgEtKvQguc6CokS+3mikMPg6m/9BEUMNnVtar5RthM9sEAWNz3TV8uLifLidrGjFOgod1oXHopRVMxIv8bkVwCcjfmvoh6iSB28WsQqKMzG52zWlB99dIZL+3Vr8voQyYIKerVTNwQ2Ja2B5pjw49LAoGBANppxAvDr6TvfcVJ8dmb9qdfuFB8xc3KdxKq2rO4h2I3m+gpoNsZ/u/w+kcuGwJZT3C34chXZ2Jl+WYHI5BRX2auC9bezvWjnJ+NAvMfylaDuHP4KeCa3LklRWElCzoF9Xh7Luw++Ype57ENiYQ9ToF9jkBdiJh9E8VZ6p1Gm1wb
+  mailgun:
+    enabled: false
+    url: https://api.mailgun.net/v3/
+    apiKey: test
+    from: test@test.bz
+    domain: mg.test.bz
+  saltedge:
+    sign-enabled: false
+    app:
+      id: 3stNKNaPr6zLi9pvp9tfnFC5quTKKUTc6kN8RqLRK5k
+    secret: YJCajrTxZXtcRzVTwzucyR7C11iCxfS66ITmlf34sFE
+    private-path: /Users/test/.ssh/id_rsa
+    devmode: true
+  openexchangerates:
+    key: fcfe008bf06545308f90183b624ba6e2
+  limits:
+    transactions: 30
+    assets: 1
+    available-pending-days: 7
+  apns:
+    enabled: false
+    bundle-id: com.realtransitapps.threebaskets
+    key: |
+      -----BEGIN PRIVATE KEY-----
+       test
+      -----END PRIVATE KEY-----
+    key-id: test
+    team-id: test
+    env: development
+  encrypt:
+    secret: secret-key-12345
+  migration:
+    encrypt: true
+    sales-income: true

@@ -1,0 +1,11 @@
+[Unit]
+Description=skrudzh-api
+
+[Service]
+Environment=SPRING_PROFILES_ACTIVE=prod
+ExecStart=java -jar /home/jenkins/runtime/skrudzh-api.jar
+User=jenkins
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
